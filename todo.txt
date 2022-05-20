@@ -4,10 +4,11 @@ TO-DO:
 8. Add flash cards for error.
 9. Add all the url link to single page.
 10. Add the voting system.
-
+6. Setup proper error handling function.
+13. Add frontend using react.
 
 DOING:
-6. Setup proper error handling function.
+
 
 
 DONE:
