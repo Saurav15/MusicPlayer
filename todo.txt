@@ -4,7 +4,8 @@ TO-DO:
 8. Add flash cards for error.
 9. Add all the url link to single page.
 10. Add the voting system.
-
+11. No one can add song > 7min.
+12. Dont allow to see login if already logged in.
 
 DOING:
 6. Setup proper error handling function.
@@ -15,4 +16,3 @@ DONE:
 1. Fix how to remove the jwt as it as expired. (Use expires in cookie) [DONE: Not tested]
 7. Create an env file for all the variables. [DONE]
 3. Email Verification. [DONE] 
-

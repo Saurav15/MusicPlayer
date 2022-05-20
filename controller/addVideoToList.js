@@ -14,7 +14,7 @@ const addVideoTolist = async (req, res) => {
 
   try {
     // Step1 : Get the user form req.user.user_id
-    throw new Error("Hello");
+    // throw new Error("Hello");
     const user = await User.findOne({ _id: req.user.user_id });
     videoAddedbyUser.userName = user.username;
 

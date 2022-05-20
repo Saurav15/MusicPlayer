@@ -61,7 +61,8 @@ route.get('/getAllQueuedSongs',verifyToken,getAllQueuedSongs);
 
 // send queued song display file
 route.get('/queue',verifyToken,(req,res)=>{
-    res.sendFile(path.join(__dirname,'../public/queue.html'))
+    // res.sendFile(path.join(__dirname,'../public/queue.html'))
+    res.render('queue')
 });
 
 route.get('/profile',verifyToken,getProfile)
