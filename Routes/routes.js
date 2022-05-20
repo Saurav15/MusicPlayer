@@ -20,6 +20,7 @@ const verifyToken = require('../middleware/auth');
 const adminAuth = require('../middleware/adminAuth');
 const getAllQueuedSongs = require('../controller/getAllQueuedSong');
 const getProfile = require('../controller/getProfile');
+const alreadyLoggedIn = require('../middleware/alreadyLoggedIn');
 
 
 // Home page TV
@@ -31,12 +32,12 @@ route.get('/search',verifyToken,(req,res)=>{
     res.render('search');
 });
 
-route.get('/register',(req,res)=>{
+route.get('/register',alreadyLoggedIn,(req,res)=>{
     // res.sendFile(path.join(__dirname,'../public/register.html'))
     res.render('register');
 });
 
-route.get('/login',(req,res)=>{
+route.get('/login',alreadyLoggedIn,(req,res)=>{
     // res.sendFile(path.join(__dirname,'../public/login.html'))
     res.render('login');
 });
