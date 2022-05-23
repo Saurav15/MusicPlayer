@@ -11,6 +11,7 @@ const homePlayer = require('../controller/homePlayer');
 const verifyMailToken = require('../controller/verifyMailToken')
 const getAllQueuedSongs = require('../controller/getAllQueuedSong');
 const getProfile = require('../controller/getProfile');
+const downVote = require('../controller/downVote');
 
 // Joi schema
 const joiUserRegisterSchema = require('../joiSchema/joiUserRegisterSchema');
@@ -66,10 +67,11 @@ route.get('/queue',verifyToken,updateLastSeen,(req,res)=>{
     res.render('queue')
 });
 
+// Send User Profile
 route.get('/profile',verifyToken,updateLastSeen,getProfile);
 
 
 // Voting 
-// route.get('/vote')
+route.get('/downVote',downVote);
 
 module.exports = route;

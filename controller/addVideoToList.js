@@ -1,23 +1,28 @@
 const User = require("../model/userModel");
-const songList = require("../songListArray");
+
 const io = require("../config/socket");
 const errorHandler = require('../helper/errorHandler');
 const findUserFromId = require("../helper/findUserFromId");
 const checkTimeDifference = require('../helper/checkTimeDifference');
+const SongList = require("../model/songModel");
 
 const addVideoTolist = async (req, res) => {
   console.log(req.body);
-  const videoAddedbyUser = {
-    videoId: req.body.videoId,
-    thumbnail: req.body.thumbnail,
-    title: req.body.title,
-    userName: null
-  };
+  
 
   try {
-    // Step1 : Get the user form req.user.user_id
+    // Step1 : Get the user form req.user.user_id 
     const user = await findUserFromId(req.user.user_id);
-    videoAddedbyUser.userName = user.username;
+    const videoAddedbyUser = {
+      videoId: req.body.videoId,
+      thumbnail: req.body.thumbnail,
+      title: req.body.title,
+      userName: user.username,
+      downVote: 0,
+      downVoteUsers: new Array(),
+      addedAt: new Date(),
+      addedby: user._id
+    };
 
 
     // Step2 : check time difference between current time and last time he added song.
@@ -25,15 +30,14 @@ const addVideoTolist = async (req, res) => {
     const timeDifference = checkTimeDifference(user.lastSongAdded);
 
     if (timeDifference >= process.env.TIME_LIMIT) {
-      console.log("Entered IF");
       // Step 3 : Now add the song to the queue and update users lastSongAdded.
-      songList.push(videoAddedbyUser);
+      const newSong = new SongList(videoAddedbyUser);
+      await newSong.save();
+
       await User.updateOne(
         { _id: req.user.user_id },
         { $set: { lastSongAdded: new Date() } }
       );
-      console.log("Song Added");
-      console.log(songList);
       // -------Sending a socket event to add the video to the list------------------
       io.emit("addElementToQueue",videoAddedbyUser)
       // ------------------------------------------------------
