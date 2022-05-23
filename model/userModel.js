@@ -9,7 +9,8 @@ const User = new mongoose.model("User", {
     type: String,
     enum: ["Pending", "Active"],
     default: "Pending",
-  }
+  },
+  lastSeen: Date
 });
 
 module.exports = User;

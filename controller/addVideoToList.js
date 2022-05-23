@@ -2,6 +2,8 @@ const User = require("../model/userModel");
 const songList = require("../songListArray");
 const io = require("../config/socket");
 const errorHandler = require('../helper/errorHandler');
+const findUserFromId = require("../helper/findUserFromId");
+const checkTimeDifference = require('../helper/checkTimeDifference');
 
 const addVideoTolist = async (req, res) => {
   console.log(req.body);
@@ -14,8 +16,7 @@ const addVideoTolist = async (req, res) => {
 
   try {
     // Step1 : Get the user form req.user.user_id
-    // throw new Error("Hello");
-    const user = await User.findOne({ _id: req.user.user_id });
+    const user = await findUserFromId(req.user.user_id);
     videoAddedbyUser.userName = user.username;
 
 
@@ -23,7 +24,7 @@ const addVideoTolist = async (req, res) => {
     // If time difference > 10 min Only then allow him to enter the song.
     const timeDifference = checkTimeDifference(user.lastSongAdded);
 
-    if (timeDifference >= 0) {
+    if (timeDifference >= process.env.TIME_LIMIT) {
       console.log("Entered IF");
       // Step 3 : Now add the song to the queue and update users lastSongAdded.
       songList.push(videoAddedbyUser);
@@ -45,19 +46,10 @@ const addVideoTolist = async (req, res) => {
 
   } 
   catch (error) {
-    errorHandler(error)
+    errorHandler("addVideoToList [ERROR]: ",error)
     // return res.send("Error: " + error);
   }
 };
 
-const checkTimeDifference = (songAddedTime) => {
-  let dateOne = songAddedTime;
-  let dateTwo = new Date();
-
-  let msDifference = dateTwo - dateOne;
-  let minutes = Math.floor(msDifference / 1000 / 60);
-  console.log("Minutes between two dates =", minutes);
-  return minutes;
-};
 
 module.exports = addVideoTolist;

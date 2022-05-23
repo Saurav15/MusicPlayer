@@ -22,7 +22,7 @@ const registration = async (req,res)=>{
                     email: email,
                     password: password,
                     lastSongAdded: null,
-                    confirmationCode: null,
+                    lastSeen: null
                 });
 
                 try {
