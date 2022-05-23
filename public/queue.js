@@ -3,13 +3,13 @@ const getQueuedSongs = async () => {
   await fetch("/getAllQueuedSongs")
     .then((res) => res.json())
     .then((res) => {
-      res.map(({ thumbnail, title, videoId, userName }) => {
-        createElement(thumbnail, title, videoId, userName);
+      res.map(({ thumbnail, title, videoId, userName , _id, addedBy}) => {
+        createElement(thumbnail, title, videoId, userName, _id, addedBy);
       });
     });
 };
 
-function createElement(thumbnail, title, videoId, userName) {
+function createElement(thumbnail, title, videoId, userName ,_id, addedBy) {
   const insertElementHere = document.getElementById("insertElementHere");
 
   const parentDiv = document.createElement("div");
@@ -44,7 +44,7 @@ function createElement(thumbnail, title, videoId, userName) {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ videoId, thumbnail, title, userName }),
+      body: JSON.stringify({ videoId, thumbnail, title, userName, _id, addedBy }),
     })
       .then((res) => res.json())
       .then((res) => console.log(res));

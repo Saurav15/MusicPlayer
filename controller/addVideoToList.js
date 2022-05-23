@@ -1,5 +1,4 @@
 const User = require("../model/userModel");
-
 const io = require("../config/socket");
 const errorHandler = require('../helper/errorHandler');
 const findUserFromId = require("../helper/findUserFromId");
@@ -21,10 +20,10 @@ const addVideoTolist = async (req, res) => {
       downVote: 0,
       downVoteUsers: new Array(),
       addedAt: new Date(),
-      addedby: user._id
+      addedBy: user._id.toString()
     };
 
-
+    console.log("Added by: ",videoAddedbyUser.addedby);
     // Step2 : check time difference between current time and last time he added song.
     // If time difference > 10 min Only then allow him to enter the song.
     const timeDifference = checkTimeDifference(user.lastSongAdded);

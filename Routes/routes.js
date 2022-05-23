@@ -72,6 +72,6 @@ route.get('/profile',verifyToken,updateLastSeen,getProfile);
 
 
 // Voting 
-route.get('/downVote',downVote);
+route.post('/downVote',downVote);
 
 module.exports = route;

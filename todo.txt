@@ -1,16 +1,16 @@
 TO-DO:
 4. Search the YT from backend instead of frontend. 
 5. Add user profile.
-8. Add flash cards for error.
-9. Add all the url link to single page.
 6. Setup proper error handling function.
 11. No one can add song > 7min.
-12. Dont allow to see login if already logged in.
+13. If the queue already has 5 songs then dont let users add new song.
+    As soon as only one song is left in the queue then send users notification to add 5 more songs/
+    And if one users has been added to the queue then dont let them add another song as long as there are other people to add the song.
+    
 
 
 DOING:
 10. Add the voting system.
-
 
 
 DONE:
